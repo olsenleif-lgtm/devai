@@ -13,14 +13,18 @@ versions=$(curl -s "$API_URL" | node -e "
   let d='';
   process.stdin.on('data',c=>d+=c);
   process.stdin.on('end',()=>{
-    const items = JSON.parse(d)
+    const parsed = JSON.parse(d);
+    if (!Array.isArray(parsed)) {
+      console.error('GitHub API error: ' + (parsed.message || 'unexpected response'));
+      process.exit(1);
+    }
+    const items = parsed
       .map(i=>i.name)
       .filter(n=>/^\d{4}-\d{2}-\d{2}\.yml$/.test(n))
       .sort();
     items.forEach(n=>console.log(n));
   });
 ")
-
 latest=$(echo "$versions" | tail -1)
 
 echo "AVAILABLE VERSIONS: $(echo "$versions" | tr '\n' ' ')"

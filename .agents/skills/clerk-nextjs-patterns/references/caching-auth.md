@@ -42,15 +42,12 @@ export async function updateProfile(formData: FormData) {
 }
 ```
 
-## Org-Scoped Cache
-
-```typescript
 const { orgId } = await auth();
+if (!orgId) throw new Error('Must be in an organization');
+
 const getOrgData = unstable_cache(
   () => db.orgData.findMany({ where: { organizationId: orgId } }),
   [`org-${orgId}-data`],
   { revalidate: 300, tags: [`org-${orgId}`] }
 );
-```
-
 [Docs](https://nextjs.org/docs/app/building-your-application/caching)

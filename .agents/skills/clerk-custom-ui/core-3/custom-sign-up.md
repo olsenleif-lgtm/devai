@@ -218,7 +218,7 @@ export default function SignUpPage() {
             <label htmlFor="code">Code</label>
             <input id="code" name="code" type="text" />
           </div>
-          {errors.fields.code && <p>{errors.fields.code.message}</p>}
+          {errors.fields?.code && <p>{errors.fields?.code?.message}</p>}
           <button type="submit" disabled={fetchStatus === 'fetching'}>
             Verify
           </button>
@@ -237,7 +237,7 @@ export default function SignUpPage() {
         <div>
           <label htmlFor="phoneNumber">Phone number</label>
           <input id="phoneNumber" name="phoneNumber" type="tel" />
-          {errors.fields.phoneNumber && <p>{errors.fields.phoneNumber.message}</p>}
+          {errors.fields?.phoneNumber && <p>{errors.fields?.phoneNumber?.message}</p>}
         </div>
         <button type="submit" disabled={fetchStatus === 'fetching'}>
           Continue

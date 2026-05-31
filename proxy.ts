@@ -13,7 +13,7 @@ export const proxy = clerkMiddleware(async (auth, request) => {
   if (!isPublicRoute(request)) {
     await auth.protect();
   }
-}, { afterSignOutUrl: "/sign-in" });
+});
 
 export const config = {
   matcher: [

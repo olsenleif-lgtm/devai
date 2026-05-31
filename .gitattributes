@@ -1,0 +1,19 @@
+# Enforce Unix line endings (LF) for all shell scripts
+*.sh text eol=lf
+*.bash text eol=lf
+
+# Enforce LF for other script and text files
+*.js text eol=lf
+*.ts text eol=lf
+*.tsx text eol=lf
+*.json text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.md text eol=lf
+
+# Binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
