@@ -11,9 +11,10 @@ interface ProjectSidebarProps {
 
 export function ProjectSidebar({ isOpen, onClose }: ProjectSidebarProps) {
   return (
-    <div
+        <div
+      aria-hidden={!isOpen}
       className={`fixed top-12 left-0 bottom-0 z-40 w-72 flex flex-col bg-elevated border-r border-surface-border transition-transform duration-200 ease-in-out ${
-        isOpen ? "translate-x-0" : "-translate-x-full"
+        isOpen ? "translate-x-0" : "-translate-x-full pointer-events-none"
       }`}
     >
       <div className="flex items-center justify-between px-4 py-3 border-b border-surface-border">
@@ -22,6 +23,7 @@ export function ProjectSidebar({ isOpen, onClose }: ProjectSidebarProps) {
           variant="ghost"
           size="icon"
           onClick={onClose}
+          aria-label="Close project sidebar"
           className="h-7 w-7 text-copy-muted hover:text-copy-primary"
         >
           <X className="h-4 w-4" />
