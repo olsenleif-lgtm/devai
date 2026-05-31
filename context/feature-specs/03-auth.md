@@ -42,7 +42,10 @@ Use existing Clerk env vars. Do not rename or invent new ones.
 
 ## Dependencies
 
-install: @clerk/ui.
+install: @clerk/ui, @clerk/nextjs
+
+- Themes: current SDK exposes themes from `@clerk/ui/themes` (we use the `dark` theme). Older/legacy SDKs may provide themes from `@clerk/themes`.
+- Server-side helpers: import server APIs from `@clerk/nextjs/server` (part of `@clerk/nextjs`).
 
 ## Check When Done
 

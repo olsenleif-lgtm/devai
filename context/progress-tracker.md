@@ -28,6 +28,14 @@ Update this file whenever the current phase, active feature, or implementation s
 - Updated `app/page.tsx` to render the editor chrome with sidebar open/close state.
 - Dialog pattern confirmed ready: `components/ui/dialog.tsx` supports title, description, and footer actions using existing color tokens.
 
+### Feature 04-project-dialogs
+
+- Created `types/project.ts` — `Project` interface and `MOCK_PROJECTS` mock data (2 owned, 1 shared).
+- Created `hooks/use-project-dialogs.ts` — manages dialog type, selected project, form state (name + live slug), and loading state.
+- Created `components/editor/project-dialogs.tsx` — Create (live slug preview), Rename (prefilled, auto-focus, Enter submits), Delete (destructive confirm) dialogs using base-ui Dialog.
+- Updated `components/editor/project-sidebar.tsx` — project list with `ProjectItem` showing inline rename/delete icon buttons (owned only), mobile backdrop scrim at `z-30` with `sm:hidden`.
+- Updated `app/page.tsx` — editor home with heading, description, New Project button; wires sidebar and home button to Create dialog; wires sidebar item actions to Rename/Delete dialogs.
+
 ### Feature 03-auth
 
 - Created `app/sign-in/page.tsx` with Clerk's `SignIn` component — two-panel layout (left panel with logo/tagline/features on desktop, right panel with form centered).

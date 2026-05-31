@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+﻿#!/usr/bin/env bash
 
 # Execute a Clerk Backend API request with scope enforcement.
 #
@@ -11,23 +11,42 @@
 
 set -euo pipefail
 
+# Safe .env parser: extracts KEY=VALUE pairs without using source/eval
+# to prevent command injection from untrusted .env files.
+_parse_env_file() {
+  local _file="$1"
+  [[ -f "$_file" ]] || return 0
+  local _line _key _val
+  while IFS= read -r _line; do
+    # Skip empty lines and comments
+    [[ -z "$_line" || "$_line" =~ ^[[:space:]]*# ]] && continue
+    # Extract KEY=VALUE (handles quoted values, ignores inline comments)
+    if [[ "$_line" =~ ^[[:space:]]*([A-Za-z_][A-Za-z0-9_]*)=[[:space:]]*(.*)$ ]]; then
+      _key="${BASH_REMATCH[1]}"
+      _val="${BASH_REMATCH[2]}"
+      # Remove leading/trailing whitespace and quotes from value
+      _val="${_val#\"}"
+      _val="${_val%\"}"
+      _val="${_val#\'}"
+      _val="${_val%\'}"
+      export "$_key=$_val"
+    fi
+  done < "$_file"
+}
+
 # Walk up from $PWD to find .env/.env.local (mirrors Clerk CLI behavior).
 # Stops at the first directory that provides CLERK_SECRET_KEY.
 _dir="$PWD"
 while true; do
   for _envfile in "$_dir/.env" "$_dir/.env.local"; do
-    if [[ -f "$_envfile" ]]; then
-      set -a
-      source "$_envfile"
-      set +a
-    fi
+    _parse_env_file "$_envfile"
   done
   [[ -n "${CLERK_SECRET_KEY:-}" ]] && break
   _parent="$(dirname "$_dir")"
   [[ "$_parent" == "$_dir" ]] && break
   _dir="$_parent"
 done
-unset _dir _parent _envfile
+unset _dir _parent _envfile _parse_env_file
 
 # Parse --admin flag
 ADMIN=false

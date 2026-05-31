@@ -267,7 +267,7 @@ export default function Page() {
           <div>
             <label htmlFor="code">Code</label>
             <input id="code" name="code" type="text" />
-            {errors.fields.code && <p>{errors.fields.code.message}</p>}
+            {errors.fields?.code && <p>{errors.fields?.code?.message}</p>}
           </div>
           <div>
             <label>
@@ -290,12 +290,12 @@ export default function Page() {
         <div>
           <label htmlFor="email">Enter email address</label>
           <input id="email" name="email" type="email" />
-          {errors.fields.identifier && <p>{errors.fields.identifier.message}</p>}
+          {errors.fields?.identifier && <p>{errors.fields?.identifier?.message}</p>}
         </div>
         <div>
           <label htmlFor="password">Enter password</label>
           <input id="password" name="password" type="password" />
-          {errors.fields.password && <p>{errors.fields.password.message}</p>}
+          {errors.fields?.password && <p>{errors.fields?.password?.message}</p>}
         </div>
         <button type="submit" disabled={fetchStatus === 'fetching'}>
           Continue
