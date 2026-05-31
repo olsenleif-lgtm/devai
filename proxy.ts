@@ -10,17 +10,10 @@ const isPublicRoute = createRouteMatcher([
 ]);
 
 export const proxy = clerkMiddleware(async (auth, request) => {
-  // Allow Next's internal RSC/data fetches to proceed so RSC payload
-  // requests are not interrupted by auth redirects. These fetches
-  // use the Accept header `text/x-component`.
-  const pathname = request.nextUrl?.pathname || new URL(request.url).pathname;
-  const isNextInternal = pathname.startsWith("/_next");
-
-  if (!isPublicRoute(request) && !isNextInternal) {
+  if (!isPublicRoute(request)) {
     await auth.protect();
   }
-  }
-});
+}, { afterSignOutUrl: "/sign-in" });
 
 export const config = {
   matcher: [
