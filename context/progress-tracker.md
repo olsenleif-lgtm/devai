@@ -8,7 +8,7 @@ Update this file whenever the current phase, active feature, or implementation s
 
 ## Current Goal
 
-- None at this time.
+- Complete
 
 ## Completed
 
@@ -28,13 +28,19 @@ Update this file whenever the current phase, active feature, or implementation s
 - Updated `app/page.tsx` to render the editor chrome with sidebar open/close state.
 - Dialog pattern confirmed ready: `components/ui/dialog.tsx` supports title, description, and footer actions using existing color tokens.
 
+### Feature 03-auth
+
+- Created `app/sign-in/page.tsx` with Clerk's `SignIn` component — two-panel layout (left panel with logo/tagline/features on desktop, right panel with form centered).
+- Created `app/sign-up/page.tsx` with Clerk's `SignUp` component — matching two-panel layout (hides left panel on small screens).
+- Updated `components/editor/editor-navbar.tsx` — added `UserButton` to right section for profile settings and logout.
+- Updated `app/page.tsx` — added `useAuth()` hook to redirect unauthenticated users to `/sign-in` and authenticated users stay on `/editor`.
+- Verified `proxy.ts` at root protects all routes except `/sign-in` and `/sign-up` using `clerkMiddleware`.
+- Verified `ClerkProvider` wraps root layout with `dark` theme and CSS variable overrides (no hardcoded colors).
+- `npm run build` passes with no errors.
+
 ## In Progress
 
-- None at this time.
-
-## Next Up
-
-- None at this time.
+- None
 
 ## Open Questions
 
